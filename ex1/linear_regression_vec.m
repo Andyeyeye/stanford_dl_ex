@@ -18,3 +18,28 @@ function [f,g] = linear_regression_vec(theta, X,y)
   %        Store the objective function value in 'f', and the gradient in 'g'.
   %
 %%% YOUR CODE HERE %%%
+  J=0;
+  fprintf("start call\n");
+  for j = 1:m
+    h_x=0;
+    for i = 1:n
+      h_x=h_x+theta(i)*X(i,j);
+    end
+    
+    J=J+(h_x-y(j))*(h_x-y(j));
+    
+  end
+  J=J/2;
+  nabla_J=zeros(size(theta));
+  for j = 1:m
+    h_x=0;
+    for i = 1:n
+      h_x=h_x+theta(i)*X(i,j);
+    end
+    for i = 1:n
+      nabla_J(i)=nabla_J(i)+X(i,j)*(h_x-y(j));
+    end
+  end
+  fprintf("finish call\n");  
+  f=J;
+  g=nabla_J;
